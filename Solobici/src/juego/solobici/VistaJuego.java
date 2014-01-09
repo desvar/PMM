@@ -11,12 +11,12 @@ import android.view.View;
 public class VistaJuego extends View {
 	//	COCHES	//
 	private Vector<Grafico> Coches;	//Vector con los Coches
-	private int numCoches = 5;		//Número inicial de Coches
-	private int numMotos = 3;		//Fragmentos/Motos en que se dividirá un Coche
+	private int numCoches = 5;		//Nï¿½mero inicial de Coches
+	private int numMotos = 3;		//Fragmentos/Motos en que se dividirï¿½ un Coche
 
 	// BICI //
 	private Grafico bici;
-	private int giroBici;			//Incremento en la dirección de la bici
+	private int giroBici;			//Incremento en la direcciï¿½n de la bici
 	private float aceleracionBici;	//Aumento de velocidad en la bici
 	private static final int PASO_GIRO_BICI = 5;
 	private static final float PASO_ACELERACION_BICI = 0.5f;
@@ -26,7 +26,7 @@ public class VistaJuego extends View {
 	private HiloJuego hiloJuego;
 	//Tiempo que debe transcurrir para procesar cambios (ms)
 	private static int PERIODO_PROCESO = 50;
-	//Momento en el que se realizó el último proceso
+	//Momento en el que se realizï¿½ el ï¿½ltimo proceso
 	private long ultimoProceso = 0;
 	
 	public VistaJuego(Context contexto, AttributeSet atributos) {
@@ -35,9 +35,9 @@ public class VistaJuego extends View {
 		//Obtenemos la imagen/recurso del coche
 		graficoCoche = contexto.getResources().getDrawable(R.drawable.coche);
 
-		//Creamos un vector para contener todos los coches que irán por la pantalla
-		//y lo rellenamos con gráficos de coches
-		// con valores aleatorios para su velocidad, dirección y rotación.
+		//Creamos un vector para contener todos los coches que irï¿½n por la pantalla
+		//y lo rellenamos con grÃ¡ficos de coches
+		// con valores aleatorios para su velocidad, direcciï¿½n y rotaciï¿½n.
 		Coches = new Vector<Grafico>();
 		for (int i=0; i<numCoches; i++) {
 			Grafico coche = new Grafico(this, graficoCoche);
@@ -66,7 +66,7 @@ public class VistaJuego extends View {
 			} while (coche.distancia(bici) < (w+h)/5);
 		}
 		
-		//Para la bici ponemos la posición central de la pantalla
+		//Para la bici ponemos la posiciï¿½n central de la pantalla
 		bici.setPosX((w-bici.getAncho())/2);
 		bici.setPosY((h-bici.getAlto())/2);
 		
@@ -89,13 +89,13 @@ public class VistaJuego extends View {
 	
 	protected synchronized void actualizaMovimiento() {
 		long ahora = System.currentTimeMillis();
-		// No hacemos nada si el período de proceso no se ha cumplido.
+		// No hacemos nada si el perï¿½odo de proceso no se ha cumplido.
 		if (ultimoProceso + PERIODO_PROCESO > ahora) {
 			return;
 		}
-		// Para una ejecución en tiempo real calculamos retardo
+		// Para una ejecuciï¿½n en tiempo real calculamos retardo
 		double retardo = (ahora - ultimoProceso) / PERIODO_PROCESO;
-		// Actualizamos la posición de la bici
+		// Actualizamos la posiciï¿½n de la bici
 		bici.setAngulo((int) (bici.getAngulo() + giroBici * retardo));
 		double nIncX = bici.getIncX() + aceleracionBici
 				* Math.cos(Math.toRadians(bici.getAngulo())) * retardo;
