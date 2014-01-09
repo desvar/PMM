@@ -1,4 +1,4 @@
 PMM
 ===
 
-Proyectos de Programación Multimedia y móviles.
+Por mucha basura que sea Android sigue siendo mejor que JavaScript.
