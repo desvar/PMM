@@ -6,9 +6,11 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
@@ -17,13 +19,13 @@ public class MainActivity extends Activity {
 			new Destino("Zona A", "Asia", "30"),
 			new Destino("Zona B", "Oceania", "30"),
 			new Destino("Zona C", "América", "20"),
-			new Destino("Zona D", "África", "20"),
-			new Destino("Zona E", "Europa", "10")
+			new Destino("Zona D", "Europa", "20"),
+			new Destino("Zona D", "Estación lunar", "500000")
 	};
 	
 	RadioButton rnormal, rurgente;
 	static double tarifa;
-	int peso = 0;
+	int peso = 0; 
 	int precio;
 	String zona, continente, resultado, clase, decoracion;
 	CheckBox tarjeta, regalo;
@@ -32,7 +34,7 @@ class AdaptadorDestino extends ArrayAdapter<Destino>{
 	
 	Activity a;
 	AdaptadorDestino(Activity b){
-		super(b, R.layout.activity_spinner);
+		super(b, R.layout.activity_spinner, destinos);
 		this.a = b;
 	}
 	
@@ -63,6 +65,32 @@ public View getView(int position, View convertView, ViewGroup parent) {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		final Spinner cmbOpciones = (Spinner)findViewById(R.id.CmbOpciones);
+		
+		AdaptadorDestino adapter = new AdaptadorDestino(this);
+		
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		
+		cmbOpciones.setAdapter(adapter);
+		
+		cmbOpciones.setOnItemSelectedListener(
+				new AdapterView.OnItemSelectedListener() {
+					public void onItemSelected(AdapterView<?> parent,
+							android.view.View v, int position, long id) {
+						zona = destinos[position].getZona();
+		                 continente = destinos[position].getContinente();
+		                 precio = Integer.parseInt(destinos[position].getPrecio());	
+					}
+
+					@Override
+					public void onNothingSelected(AdapterView<?> parent) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+				});
+		
 	}
 
 	@Override
